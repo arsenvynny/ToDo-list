@@ -1,0 +1,30 @@
+name: C++ CI with CMake and GTest
+
+# Запускати цей сценарій при кожному push та pull request у гілку main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # Використовуємо останню версію Ubuntu (Linux працює швидше за Windows у GitHub Actions)
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Завантажуємо твій код з репозиторію на віртуальну машину
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Конфігуруємо проект через CMake
+    - name: Configure CMake
+      run: cmake -B build -S .
+
+    # 3. Компілюємо проект
+    - name: Build
+      run: cmake --build build
+
+    # 4. Запускаємо тести (аргумент --output-on-failure покаже деталі, якщо тест впаде)
+    - name: Run Tests
+      run: ctest --test-dir build --output-on-failure
