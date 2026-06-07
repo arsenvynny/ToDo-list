@@ -10,4 +10,4 @@ out/
 *.out
 *.app
 *.o
-*.obj
+*.objbuild/
