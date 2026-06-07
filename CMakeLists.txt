@@ -43,3 +43,4 @@ target_link_libraries(ToDoTests gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(ToDoTests)
+
