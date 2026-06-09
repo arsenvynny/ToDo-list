@@ -1,5 +1,3 @@
-#include <windows.h>
-
 enum class Priority
 {
     high,
@@ -7,7 +5,7 @@ enum class Priority
     low,
 };
 
-enum class mounths
+enum class Months
 {
     january, 
     february, 
@@ -23,7 +21,7 @@ enum class mounths
     december
 };
 
-enum class days
+enum class Days
 {
     monday, 
     tuesday, 
