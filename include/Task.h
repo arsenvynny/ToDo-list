@@ -14,7 +14,10 @@ class Task
     public:
 
     Task(std::string description = "", Priority priority = Priority::low, bool status = false);
+    virtual ~Task() {}
     
+    Priority get_prt() const {return priority;}
+
     virtual void show() const = 0;
     void show_priority() const;
 };
@@ -33,8 +36,9 @@ class weekly_task
     Days day;
 
     public:
-    weekly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Days = Days::monday)
-        : Task("", Priority::low, false), day(Days::monday) {}
+    weekly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Days day= Days::monday)
+        : Task(description, priority, status), day(day) {}
+    virtual ~weekly_task() {}
         
     void show_day() const;
     virtual void show() const override;
@@ -46,8 +50,9 @@ class monthly_task
     Months month;
 
     public:
-    monthly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Days = Days::monday)
-        : Task("", Priority::low, false), month(Months::january) {}
+    monthly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Months month = Months::january)
+        : Task(description, priority, status), month(month) {}
+    virtual ~monthly_task() {}
         
     void show_month() const;
     virtual void show() const override;
