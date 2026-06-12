@@ -2,6 +2,7 @@
 
 #include "TaskManager.h"
 
-int main() {
-    
+int main() 
+{
+    ToDoList work;    
 }

@@ -14,5 +14,13 @@ void ToDoList::sort()
 {
     std::sort(tasks.begin(), tasks.end(), 
     [](const std::unique_ptr<Task>& a, const std::unique_ptr<Task>& b) 
-    {return a->get_prt() > b->get_prt();});
+    {return a->get_prt() < b->get_prt();});
+}
+size_t ToDoList::size()
+{
+    return tasks.size();
+}
+const Task& ToDoList::operator[](size_t index) const 
+{
+    return *tasks[index]; 
 }

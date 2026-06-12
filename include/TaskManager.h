@@ -15,4 +15,7 @@ class ToDoList
     void push(std::unique_ptr<Task> task);
     void show_tasks() const;
     void sort();
+
+    size_t size();
+    const Task& operator[](size_t index) const;
 };
