@@ -2,6 +2,7 @@
 
 #include <string>
 #include <Enums.h>
+#include <nlohmann/json.hpp>
 
 class Task
 {
@@ -20,6 +21,7 @@ class Task
 
     virtual void show() const = 0;
     void show_priority() const;
+    virtual nlohmann::json toJson() const;
 };
 
 class daily_task
@@ -29,7 +31,9 @@ class daily_task
 
     daily_task(std::string description = "", Priority priority = Priority::low, bool status = false)
         : Task(description, priority, status) {}
+    
     virtual void show() const override;
+    virtual nlohmann::json toJson() const;
 };
 
 class weekly_task
@@ -44,19 +48,21 @@ class weekly_task
         
     void show_day() const;
     virtual void show() const override;
+    virtual nlohmann::json toJson() const override;
 };
 
 class monthly_task
     : public Task
 {
-    int date;
+    std::string date;
     Months month;
 
     public:
-    monthly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Months month = Months::january, int date = 1)
+    monthly_task(std::string description = "", Priority priority = Priority::low, bool status = false, Months month = Months::january, std::string date = "1")
         : Task(description, priority, status), month(month), date(date) {}
     virtual ~monthly_task() {}
         
     void show_month() const;
     virtual void show() const override;
+    virtual nlohmann::json toJson() const override;
 };

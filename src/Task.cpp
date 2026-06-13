@@ -107,3 +107,45 @@ void monthly_task::show() const
     std::cout << description << "  "; show_priority(); show_month();
     std::cout << '\n';
 }
+nlohmann::json Task::toJson() const
+{
+    nlohmann::json j;
+
+    j["description"] = description;
+    j["Priority"]    = static_cast<int>(priority);
+    j["status"]      = status;
+
+    return j;
+}
+nlohmann::json daily_task::toJson() const
+{
+    nlohmann::json j;
+
+    j = Task::toJson();
+    j["type"] = "daily";
+
+    return j;
+}
+nlohmann::json weekly_task::toJson() const
+{
+    nlohmann::json j;
+
+    j = Task::toJson();
+
+    j["Day"]  = static_cast<int>(day);
+    j["type"] = "weekly";
+
+    return j;
+}
+nlohmann::json monthly_task::toJson() const
+{
+    nlohmann::json j;
+
+    j = Task::toJson();
+
+    j["date"]  = date;
+    j["Month"] = static_cast<int>(month);
+    j["type"]  = "monthly";
+
+    return j;
+}

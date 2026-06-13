@@ -12,6 +12,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(include)
 
+include(FetchContent)
+
+# Оголошуємо, звідки завантажити бібліотеку (офіційний GitHub репозиторій)
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.11.3 # Використовуємо стабільну версію
+)
+
+# Завантажуємо та робимо доступною для проєкту
+FetchContent_MakeAvailable(json)
+
 # --- 1. Основна програма ---
 add_executable(ToDoApp
     src/main.cpp
@@ -39,7 +51,9 @@ add_executable(ToDoTests
 )
 
 target_include_directories(ToDoTests PRIVATE include)
-target_link_libraries(ToDoTests gtest_main)
+
+target_link_libraries(ToDoTests gtest_main nlohmann_json::nlohmann_json)
+
 
 include(GoogleTest)
 gtest_discover_tests(ToDoTests)

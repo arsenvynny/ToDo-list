@@ -17,5 +17,9 @@ class ToDoList
     void sort();
 
     size_t size();
+    
     const Task& operator[](size_t index) const;
+    
+    void saveToFile(const std::string& file) const;
+    void loadFromFile(const std::string& file);
 };
