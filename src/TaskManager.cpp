@@ -78,7 +78,7 @@ void ToDoList::loadFromFile(const std::string& file)
 }
 bool operator==(ToDoList& a, ToDoList& b)
 {
-    auto& l = b.tasks.begin();
+    auto l = b.tasks.begin();
 
     for (const auto& i : a.tasks)
     {
