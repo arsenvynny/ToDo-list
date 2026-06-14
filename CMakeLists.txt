@@ -31,6 +31,8 @@ add_executable(ToDoApp
     src/TaskManager.cpp
 )
 
+target_link_libraries(ToDoApp PRIVATE nlohmann_json::nlohmann_json)
+
 # --- 2. Налаштування тестів ---
 include(FetchContent)
 FetchContent_Declare(
