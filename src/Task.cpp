@@ -1,6 +1,7 @@
 #include "Task.h" 
 
 #include <iostream>
+#include <memory>
 
 Task::Task(std::string description, Priority priority, bool status)
 {
@@ -148,4 +149,37 @@ nlohmann::json monthly_task::toJson() const
     j["type"]  = "monthly";
 
     return j;
+}
+bool operator==(const Task& a, const Task& b)
+{
+    if(a.description == b.description && 
+        a.priority   == b.priority && 
+        a.status     == b.status)
+        return true;
+    return false;
+}
+bool Task::isEqual(const std::unique_ptr<Task>& other) const
+{
+    return *this == *other;
+}
+bool daily_task::isEqual(const std::unique_ptr<Task>& other) const
+{
+    const daily_task* p = dynamic_cast<const daily_task*>(other.get());
+
+    return *this == *p;
+}
+bool weekly_task::isEqual(const std::unique_ptr<Task>& other) const
+{
+    const weekly_task* p = dynamic_cast<const weekly_task*>(other.get());
+
+    return *this      == *p && 
+            this->day == p->day;
+}
+bool monthly_task::isEqual(const std::unique_ptr<Task>& other) const
+{
+    const monthly_task* p = dynamic_cast<const monthly_task*>(other.get());
+
+    return *this        == *p && 
+            this->date  == p->date && 
+            this->month == p->month;
 }

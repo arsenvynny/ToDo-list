@@ -22,4 +22,6 @@ class ToDoList
     
     void saveToFile(const std::string& file) const;
     void loadFromFile(const std::string& file);
+
+    friend bool operator==(ToDoList& a, ToDoList& b);
 };

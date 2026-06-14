@@ -47,7 +47,7 @@ void ToDoList::loadFromFile(const std::string& file)
 
     nlohmann::json parsedJson;
 
-    if((f.is_open())) return;
+    if(!((f.is_open()))) return;
     
     f >> parsedJson;
     f.close();
@@ -75,4 +75,18 @@ void ToDoList::loadFromFile(const std::string& file)
             push(std::make_unique<monthly_task>(description, priority, status, month, date));
         }
     }
+}
+bool operator==(ToDoList& a, ToDoList& b)
+{
+    auto& l = b.tasks.begin();
+
+    for (const auto& i : a.tasks)
+    {
+        if (!((*i).isEqual(*l)))
+            return false;
+        
+        else
+            l++;
+    }
+    return true;
 }
