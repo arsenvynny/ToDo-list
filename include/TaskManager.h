@@ -7,14 +7,16 @@
 class ToDoList
 {
     std::vector<std::unique_ptr<Task>> tasks;
+    static int count;
 
     public:
-     ToDoList() = default;
-    ~ToDoList() = default;
+     ToDoList()  {count++;}
+     ~ToDoList() {count--;}      
 
     void push(std::unique_ptr<Task> task);
-    void show_tasks() const;
+    std::string show_tasks() const;
     void sort();
+    int getcount() {return count;}
 
     size_t size();
     
@@ -23,5 +25,6 @@ class ToDoList
     void saveToFile(const std::string& file) const;
     void loadFromFile(const std::string& file);
 
+    const std::vector<std::unique_ptr<Task>>& getTasks() const {return tasks;}
     friend bool operator==(ToDoList& a, ToDoList& b);
 };

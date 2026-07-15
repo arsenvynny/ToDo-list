@@ -4,14 +4,19 @@
 #include <algorithm>
 #include <memory>
 
+int ToDoList::count = 0;
+
 void ToDoList::push(std::unique_ptr<Task> task)
 {
     tasks.push_back(std::move(task));
+    count++;
 }
-void ToDoList::show_tasks() const
+std::string ToDoList::show_tasks() const
 {
+    std::string info;
     for (const auto& i : tasks)
-         i->show();
+         info += i->show();
+    return info;
 }
 void ToDoList::sort()
 {

@@ -19,9 +19,9 @@ class Task
     
     Priority get_prt() const {return priority;}
    
-    void show_priority() const;
+    std::string show_priority() const;
     
-    virtual void show() const = 0;
+    virtual std::string show() const = 0;
     virtual nlohmann::json toJson() const;
     virtual bool isEqual(const std::unique_ptr<Task>& other) const;
 
@@ -36,7 +36,7 @@ class daily_task
     daily_task(std::string description = "", Priority priority = Priority::low, bool status = false)
         : Task(description, priority, status) {}
     
-    virtual void show() const override;
+    virtual std::string show() const override;
     virtual nlohmann::json toJson() const override;
     virtual bool isEqual(const std::unique_ptr<Task>& other) const override;
 };
@@ -51,9 +51,9 @@ class weekly_task
         : Task(description, priority, status), day(day) {}
     virtual ~weekly_task() {}
         
-    void show_day() const;
+    std::string show_day() const;
 
-    virtual void show() const override;
+    virtual std::string show() const override;
     virtual nlohmann::json toJson() const override;
     virtual bool isEqual(const std::unique_ptr<Task>& other) const override;
 };
@@ -69,9 +69,9 @@ class monthly_task
         : Task(description, priority, status), month(month), date(date) {}
     virtual ~monthly_task() {}
         
-    void show_month() const;
+    std::string show_month() const;
 
-    virtual void show() const override;
+    virtual std::string show() const override;
     virtual nlohmann::json toJson() const override;
     virtual bool isEqual(const std::unique_ptr<Task>& other) const override;
 };

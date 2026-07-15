@@ -10,103 +10,117 @@ Task::Task(std::string description, Priority priority, bool status)
     this->status      = status;
 }
 
-void Task::show_priority() const
+std::string Task::show_priority() const
 {
+    std::string info;
     switch (priority)
     {
         case Priority::high:
-        std::cout << "Висока   ";
+        info = "Висока   ";
 
         case Priority::medium:
-        std::cout << "Середня   ";
+        info = "Середня   ";
 
         case Priority::low:
-        std::cout << "Низька   ";
+        info =  "Низька   ";
     }
+    return info;
 }
 
-void weekly_task::show_day() const
+std::string weekly_task::show_day() const
 {
+    std::string info;
+
     switch (day)
     {
         case Days::monday:
-        std::cout << "Понеділок";
+        info = "Понеділок";
 
         case Days::tuesday:
-        std::cout << "Вівторок";
+        info = "Вівторок";
 
         case Days::wednesday:
-        std::cout << "Середа";
+        info = "Середа";
 
         case Days::thursday:
-        std::cout << "Четвер";
+        info = "Четвер";
 
         case Days::friday:
-        std::cout << "П'ятниця";
+        info = "П'ятниця";
 
         case Days::saturday:
-        std::cout << "Субота";
+        info = "Субота";
 
         case Days::sunday:
-        std::cout << "Неділя";
+        info = "Неділя";
     }
+    return info;
 }
-void monthly_task::show_month() const
+std::string monthly_task::show_month() const
 {
+    std::string info;
+
     switch (month)
     {
         case Months::january:
-        std::cout << "Січень";
+        info = "Січень";
 
         case Months::february:
-        std::cout << "Лютий";
+        info = "Лютий";
 
         case Months::march:
-        std::cout << "Березень";
+        info = "Березень";
 
         case Months::april:
-        std::cout << "Квітень";
+        info = "Квітень";
 
         case Months::may:
-        std::cout << "Травень";
+        info = "Травень";
 
         case Months::june:
-        std::cout << "Червень";
+        info = "Червень";
 
         case Months::july:
-        std::cout << "Липень";
+        info = "Липень";
 
         case Months::august:
-        std::cout << "Серпень";
+        info = "Серпень";
 
         case Months::september:
-        std::cout << "Вересень";
+        info = "Вересень";
 
         case Months::october:
-        std::cout << "Жовтень";
+        info = "Жовтень";
 
         case Months::november:
-        std::cout << "Листопад";
+        info = "Листопад";
 
         case Months::december:
-        std::cout << "Грудень";
+        info = "Грудень";
     }
+    return info;
 }
 
-void daily_task::show() const
+std::string daily_task::show() const
 {
-    std::cout << description << "  "; show_priority();
-    std::cout << '\n';
+    std::string info;
+
+    info =  description + '\n' + '\n' + show_priority();
+    return info;
 }
-void weekly_task::show() const
+std::string weekly_task::show() const
 {
-    std::cout << description << "  "; show_priority(); show_day();
-    std::cout << '\n';
+    std::string info;
+
+    info =  description + '\n' + '\n' + show_priority() + '\n' + show_day();
+    return info;
 }
-void monthly_task::show() const
+std::string monthly_task::show() const
 {
-    std::cout << description << "  "; show_priority(); show_month();
-    std::cout << '\n';
+    std::string info;
+
+    info =  description + '\n' + '\n' + show_priority() + '\n' + show_month();
+    return info;
 }
 nlohmann::json Task::toJson() const
 {
