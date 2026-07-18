@@ -4,12 +4,9 @@
 #include <algorithm>
 #include <memory>
 
-int ToDoList::count = 0;
-
 void ToDoList::push(std::unique_ptr<Task> task)
 {
     tasks.push_back(std::move(task));
-    count++;
 }
 std::string ToDoList::show_tasks() const
 {
@@ -83,6 +80,9 @@ void ToDoList::loadFromFile(const std::string& file)
 }
 bool operator==(ToDoList& a, ToDoList& b)
 {
+    if(a.size() != b.size())
+     return false;
+     
     auto l = b.tasks.begin();
 
     for (const auto& i : a.tasks)

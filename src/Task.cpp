@@ -1,3 +1,4 @@
+#pragma once
 #include "Task.h" 
 
 #include <iostream>
@@ -17,12 +18,15 @@ std::string Task::show_priority() const
     {
         case Priority::high:
         info = "Висока   ";
+        break;
 
         case Priority::medium:
         info = "Середня   ";
+        break;
 
         case Priority::low:
         info =  "Низька   ";
+        break;
     }
     return info;
 }
@@ -35,24 +39,31 @@ std::string weekly_task::show_day() const
     {
         case Days::monday:
         info = "Понеділок";
+        break;
 
         case Days::tuesday:
         info = "Вівторок";
+        break;
 
         case Days::wednesday:
         info = "Середа";
+        break;
 
         case Days::thursday:
         info = "Четвер";
+        break;
 
         case Days::friday:
         info = "П'ятниця";
-
+        break;
+        
         case Days::saturday:
         info = "Субота";
+        break;
 
         case Days::sunday:
         info = "Неділя";
+        break;
     }
     return info;
 }
@@ -64,39 +75,51 @@ std::string monthly_task::show_month() const
     {
         case Months::january:
         info = "Січень";
+        break;
 
         case Months::february:
         info = "Лютий";
+        break;
 
         case Months::march:
         info = "Березень";
+        break;
 
         case Months::april:
         info = "Квітень";
+        break;
 
         case Months::may:
         info = "Травень";
+        break;
 
         case Months::june:
         info = "Червень";
+        break;
 
         case Months::july:
         info = "Липень";
+        break;
 
         case Months::august:
         info = "Серпень";
+        break;
 
         case Months::september:
         info = "Вересень";
+        break;
 
         case Months::october:
         info = "Жовтень";
+        break;
 
         case Months::november:
         info = "Листопад";
+        break;
 
         case Months::december:
         info = "Грудень";
+        break;
     }
     return info;
 }
@@ -178,22 +201,25 @@ bool Task::isEqual(const std::unique_ptr<Task>& other) const
 }
 bool daily_task::isEqual(const std::unique_ptr<Task>& other) const
 {
-    const daily_task* p = dynamic_cast<const daily_task*>(other.get());
-
-    return *this == *p;
+    if (const daily_task* p = dynamic_cast<const daily_task*>(other.get()))
+        return *this == *p;
 }
 bool weekly_task::isEqual(const std::unique_ptr<Task>& other) const
 {
-    const weekly_task* p = dynamic_cast<const weekly_task*>(other.get());
-
-    return *this      == *p && 
-            this->day == p->day;
+    if (const weekly_task* p = dynamic_cast<const weekly_task*>(other.get()))
+    {
+        return *this      == *p && 
+                this->day == p->day;
+    }
 }
 bool monthly_task::isEqual(const std::unique_ptr<Task>& other) const
 {
-    const monthly_task* p = dynamic_cast<const monthly_task*>(other.get());
-
-    return *this        == *p && 
+    if (const monthly_task* p = dynamic_cast<const monthly_task*>(other.get()))
+    {
+        return *this        == *p && 
             this->date  == p->date && 
             this->month == p->month;
+    }
+    else
+        return;
 }

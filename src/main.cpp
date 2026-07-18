@@ -7,6 +7,20 @@
 
 #include "TaskManager.h"
 
+std::string get_token()
+{
+    std::ifstream f(".env");
+    nlohmann::json parsedJson;
+    std::string token;
+
+    if(f.is_open())
+    {
+        f >> parsedJson;
+
+        token = parsedJson["BOT_TOKEN"];
+    }
+    return token;
+}
 int main() {
 
     #ifdef _WIN32
@@ -15,23 +29,15 @@ int main() {
 
     ToDoList manager;
 
-    // Встав сюди токен, який тобі видав BotFather
-    TgBot::Bot bot("8991577176:AAEFv7PmZpP1Oxd1mXdtIPjSsWz-yA_Mn-g");
+
+    TgBot::Bot bot(get_token());
 
     bot.getEvents().onCommand("start", [&bot, &manager](TgBot::Message::Ptr message) {
 
         manager.loadFromFile("tasks.json");
         std::string response;
 
-        if (manager.getcount() == 0)
-            bot.getApi().sendMessage(message->chat->id, "У тебе на сьогодні немає роботи. Можеш відпочити!");
-        
-        else
-        {
-            bot.getApi().sendMessage(message->chat->id, "Привіт!\n твої завдання на сьогодні:\n");
-            for (const auto &i : manager.getTasks())
-                i->show();
-        }
+       bot.getApi().sendMessage(message->chat->id, "Привіт!\n твої завдання на сьогодні:\n");
     });
 
     // Обробка будь-якого іншого текстового повідомлення

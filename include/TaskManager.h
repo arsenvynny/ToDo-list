@@ -1,4 +1,4 @@
-
+#pragma once
 #include "Task.h"
 
 #include <vector>
@@ -7,16 +7,14 @@
 class ToDoList
 {
     std::vector<std::unique_ptr<Task>> tasks;
-    static int count;
 
     public:
-     ToDoList()  {count++;}
-     ~ToDoList() {count--;}      
+     ToDoList()  = default;  
+     ~ToDoList() = default; 
 
     void push(std::unique_ptr<Task> task);
     std::string show_tasks() const;
     void sort();
-    int getcount() {return count;}
 
     size_t size();
     
