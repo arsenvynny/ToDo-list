@@ -203,6 +203,8 @@ bool daily_task::isEqual(const std::unique_ptr<Task>& other) const
 {
     if (const daily_task* p = dynamic_cast<const daily_task*>(other.get()))
         return *this == *p;
+    else
+        return false;
 }
 bool weekly_task::isEqual(const std::unique_ptr<Task>& other) const
 {
@@ -211,6 +213,8 @@ bool weekly_task::isEqual(const std::unique_ptr<Task>& other) const
         return *this      == *p && 
                 this->day == p->day;
     }
+    else
+        return false;
 }
 bool monthly_task::isEqual(const std::unique_ptr<Task>& other) const
 {
@@ -221,5 +225,5 @@ bool monthly_task::isEqual(const std::unique_ptr<Task>& other) const
             this->month == p->month;
     }
     else
-        return;
+        return false;
 }

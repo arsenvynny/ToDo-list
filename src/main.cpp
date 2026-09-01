@@ -1,5 +1,6 @@
 #include <iostream>
 #include <tgbot/tgbot.h>
+#include <unordered_map>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -27,15 +28,14 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     #endif 
 
-    ToDoList manager;
+    std::unordered_map<std::int64_t, ToDoList> tasks;
 
 
     TgBot::Bot bot(get_token());
 
-    bot.getEvents().onCommand("start", [&bot, &manager](TgBot::Message::Ptr message) {
+    bot.getEvents().onCommand("start", [&bot, &tasks](TgBot::Message::Ptr message) {
 
-        manager.loadFromFile("tasks.json");
-        std::string response;
+      
 
        bot.getApi().sendMessage(message->chat->id, "Привіт!\n твої завдання на сьогодні:\n");
     });

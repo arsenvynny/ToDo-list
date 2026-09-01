@@ -27,6 +27,7 @@ add_executable(ToDoApp
     src/main.cpp
     src/Task.cpp
     src/TaskManager.cpp
+    src/UserStore.cpp
 )
 
 target_link_libraries(ToDoApp PRIVATE nlohmann_json::nlohmann_json TgBot::TgBot)

@@ -29,54 +29,14 @@ const Task& ToDoList::operator[](size_t index) const
 {
     return *tasks[index]; 
 }
-void ToDoList::saveToFile(const std::string& file) const
+nlohmann::json ToDoList::tojson() const
 {
     nlohmann::json finaljson = nlohmann::json::array();
 
     for (const auto& i : tasks)
         finaljson.push_back(i->toJson());
     
-    std::ofstream f(file);
-
-    if(f.is_open())
-        f << finaljson.dump(4);
-    
-    f.close();
-}
-void ToDoList::loadFromFile(const std::string& file) 
-{
-    std::ifstream f(file);
-
-    nlohmann::json parsedJson;
-
-    if(!((f.is_open()))) return;
-    
-    f >> parsedJson;
-    f.close();
-
-    tasks.clear();
-    for (const auto& i : parsedJson)
-    {
-        auto type        = i["type"];
-        auto description = i["description"];
-        auto priority    = static_cast<Priority>(i["Priority"]);
-        auto status      = i["status"];
-
-        if (type == "daily")
-            push(std::make_unique<daily_task>(description, priority, status));
-        
-        else if (type == "weekly")
-        {
-            auto day = i["Day"];
-            push(std::make_unique<weekly_task>(description, priority, status, day));
-        }
-        else if (type == "monthly")
-        {
-            auto date = i["date"];
-            auto month = i["Month"];
-            push(std::make_unique<monthly_task>(description, priority, status, month, date));
-        }
-    }
+   return finaljson;
 }
 bool operator==(ToDoList& a, ToDoList& b)
 {
